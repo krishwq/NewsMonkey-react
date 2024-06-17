@@ -17,89 +17,112 @@ export class News extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles: [],
-      loading: false,
+      articles: this.props.article.slice(0,25),
+      loading: true,
       page: 1,
     };
     document.title = `NewsMonkey-${this.props.content}`;
   }
+  
   async componentDidMount() {
     this.props.setprogress(10);
-    let url = `https://newsapi.org/v2/${this.props.chategory}?${this.props.main}&apiKey=${this.props.api}&page=1&pagesize=${this.props.pagesize}`;
+    // let url = `https://newsapi.org/v2/${this.props.chategory}?${this.props.main}&apiKey=${this.props.api}&page=1&pagesize=${this.props.pagesize}`;
     this.setState({ loading: true });
-    let data = await fetch(url);
-    this.props.setprogress(30);
-    let parsdata = await data.json();
-    this.props.setprogress(70);
-    this.setState({
-      articles: parsdata.articles,
-      totalResult: parsdata.totalResults,
-      loading: false,
-    });
-    this.props.setprogress(100);
+    // let data = await fetch(url);
+    setTimeout(() => {
+      this.props.setprogress(30);
+    }, 500);
+    // let parsdata = await data.json();
+    setTimeout(() => {
+      this.props.setprogress(70);
+    }, 1000);
+    setTimeout(() => {
+      this.setState({
+        // articles: parsdata.articles,
+        // totalResult: parsdata.totalResults,
+        loading: false,
+      });
+      this.props.setprogress(100);
+    }, 1300);
   }
-  fetchMoreData = async () => {
-    if (this.state.totalResult > 96) {
-      if (this.state.articles.length <= 96) {
-        let url = `https://newsapi.org/v2/${this.props.chategory}?${
-          this.props.main
-        }&apiKey=${this.props.api}&page=${this.state.page + 1}&pagesize=${
-          this.props.pagesize
-        }`;
-        this.setState({ page: this.state.page + 1 });
-        this.setState({ loading: true });
-        let data = await fetch(url);
-        let parsdata = await data.json();
-        this.setState({
-          articles: this.state.articles.concat(parsdata.articles),
-          totalResult: parsdata.totalResults,
-          loading: false,
-        });
-      }
-    } else {
-      if (this.state.page <= Math.ceil(this.state.totalResult / 12)) {
-        let url = `https://newsapi.org/v2/${this.props.chategory}?${
-          this.props.main
-        }&apiKey=${this.props.api}&page=${this.state.page + 1}&pagesize=${
-          this.props.pagesize
-        }`;
-        this.setState({ page: this.state.page + 1 });
-        this.setState({ loading: true });
-        let data = await fetch(url);
-        let parsdata = await data.json();
-        this.setState({
-          articles: this.state.articles.concat(parsdata.articles),
-          totalResult: parsdata.totalResults,
-          loading: false,
-        });
-      }
-    }
-  };
+    
+   
+  fetchMoreData=()=>{
+        this.setState({ loading: true,
+         });
+        setTimeout(() => {
+          this.setState({
+            loading: false,
+          articles:this.props.article,
+          });
+        }, 1300);
+
+  }
+
+  // fetchMoreData = async () => {
+  //   if (this.state.totalResult > 96) {
+  //     if (this.state.articles.length <= 96) {
+  //       let url = `https://newsapi.org/v2/${this.props.chategory}?${
+  //         this.props.main
+  //       }&apiKey=${this.props.api}&page=${this.state.page + 1}&pagesize=${
+  //         this.props.pagesize
+  //       }`;
+  //       this.setState({ page: this.state.page + 1 });
+  //       this.setState({ loading: true });
+  //       let data = await fetch(url);
+  //       let parsdata = await data.json();
+  //       this.setState({
+  //         articles: this.state.articles.concat(parsdata.articles),
+  //         totalResult: parsdata.totalResults,
+  //         loading: false,
+  //       });
+  //     }
+  //   } else {
+  //     if (this.state.page <= Math.ceil(this.state.totalResult / 12)) {
+  //       let url = `https://newsapi.org/v2/${this.props.chategory}?${
+  //         this.props.main
+  //       }&apiKey=${this.props.api}&page=${this.state.page + 1}&pagesize=${
+  //         this.props.pagesize
+  //       }`;
+  //       this.setState({ page: this.state.page + 1 });
+  //       this.setState({ loading: true });
+  //       let data = await fetch(url);
+  //       let parsdata = await data.json();
+  //       this.setState({
+  //         articles: this.state.articles.concat(parsdata.articles),
+  //         totalResult: parsdata.totalResults,
+  //         loading: false,
+  //       });
+  //     }
+  //   }
+  // };
 
   render() {
     let { mode } = this.props;
     return (
       <>
-        <h1
-          className={`text-center text-${mode === "dark" ? "light" : "dark"} `}
-          style={{ marginBottom: "35px", marginTop: "80px" }}
-        >
-          NewsMonkey-{this.props.content}
-        </h1>
-        <InfiniteScroll
+          <h1
+            className={`text-center text-${
+              mode === "dark" ? "light" : "dark"
+            } `}
+            style={{ marginBottom: "35px", marginTop: "80px" }}
+          >
+            NewsMonkey-{this.props.content}
+          </h1>
+          <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
           hasMore={
-            this.state.totalResult > 96
-              ? this.state.articles.length !== 96
-              : this.state.articles.length !== this.state.totalResult
+            this.state.articles.length !== this.props.article.length
           }
-          loader={<Load />}
+          loader={<Load />} 
         >
           <div className="container">
-            <div className="row">
-              {this.state.articles.map((element) => {
-                return (
+          {this.state.loading && <Load mode={mode} />}
+          <div className="row">
+            {this.state.articles.map((element) => {
+              return (
+                 (
                   <div className="col-4" key={element.url}>
                     <Newsitem
                       title={
@@ -122,11 +145,14 @@ export class News extends Component {
                       source={element.source.name}
                     />
                   </div>
-                );
-              })}
-            </div>
+                )
+              );
+            })}
+          
+          </div>
           </div>
         </InfiniteScroll>
+        
       </>
     );
   }

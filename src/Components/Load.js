@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import loading from "./loading.gif";
-// import Loaditem from "./Loaditem";
+import Loaditem from "./Loaditem";
 
 export class Load extends Component {
   render() {
@@ -9,25 +9,25 @@ export class Load extends Component {
         <div className="align-middle text-center">
           <img src={loading} alt="loading" />
         </div>
-        {/* <div className="container my-3">
+         <div className="container my-3">
           <div className="row">
             <div className="col-4 mb-3">
-              <Loaditem/>
+              <Loaditem mode={this.props.mode}/>
             </div>
             <div className="col-4 mb-3">
-              <Loaditem/>
+              <Loaditem mode={this.props.mode}/>
             </div><div className="col-4 mb-3">
-              <Loaditem/>
+              <Loaditem mode={this.props.mode}/>
             </div>
-            {/* <div className="col-4 mb-3">
-              <Loaditem/>
+             <div className="col-4 mb-3">
+              <Loaditem mode={this.props.mode}/>
             </div><div className="col-4 mb-3">
-              <Loaditem/>
+              <Loaditem mode={this.props.mode}/>
             </div><div className="col-4 mb-3">
-              <Loaditem/>
+              <Loaditem mode={this.props.mode}/>
             </div> 
             </div>
-        </div> */} 
+        </div> 
       </>
     );
   }

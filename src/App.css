@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
+body{
+  background-color: #081f48;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form-check-input:checked {
+  background-color:black;
+  border-color: black;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.form-check-input{
+cursor: pointer;
+}
+.form-check-input:focus{
+  border: 1px solid black;
+  box-shadow: none;
+}
+.card{
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+@media only screen and (max-width:1000px)  {
+  .col-4{
+      width: 50%;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+@media only screen and (max-width:768px)  {
+  .col-4{
+      width: 100%;
+  }
+}
+img{
+  height: 200px;
+}
+#button{
+display: block;
+padding: 0.5rem 8px;
+color: rgba(255, 255, 255,0.55);
+text-decoration: none;
+  background: 0 0;
+  border: 0;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+.top{
+  border-radius: 50%;
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-color: aliceblue;
+  display: none;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
