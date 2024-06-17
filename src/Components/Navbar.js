@@ -14,7 +14,7 @@ export class Navbar extends Component {
         } bg-${mode === "dark" ? "dark" : "info"} `}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/News-react">
+          <Link className="navbar-brand" to="/NewsMonkey-react">
             NewsMonkey
           </Link>
           <button

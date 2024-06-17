@@ -64,7 +64,7 @@ handleScrollToElement=()=>{
             progress={this.state.progress}
           />
           <Switch>
-            <Route exact path="/News-react">
+            <Route exact path="/NewsMonkey-react">
               <News
                 setprogress={this.setprogress}
                 mode={this.state.mode}
